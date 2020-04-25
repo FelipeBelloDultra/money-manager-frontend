@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import api from '../../utils/api';
-import './styles.css';
 
 const Auth = () => {
   const history = useHistory();
@@ -21,7 +20,7 @@ const Auth = () => {
     event.preventDefault();
 
     if (!email || !password) {
-      alert('Preencha todos os campos');
+      setError('Preencha todos os campos!');
       return;
     }
 
@@ -31,15 +30,17 @@ const Auth = () => {
       localStorage.setItem('@login-money-manager', response.data.user.login);
       history.push('/dashboard');
     } catch (error) {
-      alert(error.reponse)
+      setEmail('');
+      setPassword('');
+      setError(error.response.data.error)
     }
-
   };
 
   return (
     <div className="background-login">
       <div className="container-login">
         <h3>Fazer Login</h3>
+        <p className="error">{error}</p>
         <form onSubmit={handleClickLogin}>
           <input
             type="email"
