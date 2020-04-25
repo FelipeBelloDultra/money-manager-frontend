@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import api from '../../utils/api';
 
@@ -18,30 +18,20 @@ const Dashboard = () => {
       });
       setUserData(infoUser.data);
     } catch (error) {
-      setError(error.response.data.error);
+      setError(error.response);
     }
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('@access_token-money-manager')) {
-      history.push('/auth');
-      return;
-    }
     getInfoUser();
   }, [history]);
-
-  const handleClickSignOut = () => {
-    localStorage.removeItem('@access_token-money-manager');
-    localStorage.removeItem('@login-money-manager');
-    history.push('/auth');
-  };
 
   return (
     <div>
       <h1>ROTA MAIN</h1>
       <p>{error}</p>
       <p>Bem vindo, {userData.login}</p>
-      <button onClick={handleClickSignOut}>Sair</button>
+      <Link to="/historic">Rota de histórico</Link>
     </div>
   );
 };

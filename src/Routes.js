@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import { Auth, Register, Dashboard } from './views'
+import { Auth, Register, Dashboard, Historic } from './views'
+import { PrivateRoute } from './components';
+import { MainLayout } from './layouts';
 
 const Routes = () => {
   return (
@@ -17,12 +19,19 @@ const Routes = () => {
           path="/register"
           component={Register}
         />
-        <Route
-          exact
+        <PrivateRoute
+          layout={MainLayout}
           path="/dashboard"
+          exact
           component={Dashboard}
         />
-
+        />
+        <PrivateRoute
+          layout={MainLayout}
+          exact
+          path="/historic"
+          component={Historic}
+        />
         <Redirect to="/auth" />
       </Switch>
     </BrowserRouter>
