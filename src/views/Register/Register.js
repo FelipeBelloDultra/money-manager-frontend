@@ -9,13 +9,18 @@ const Auth = () => {
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleClickLogin = async (event) => {
-    event.preventDefault();
-
-    if (!email || !password || !login) {
+  const handleClickLogin = async () => {
+    if (!email || !password || !login || !repeatPassword) {
       setError('Preencha todos os campos!');
+      return;
+    }
+    if (repeatPassword !== password) {
+      setError('As senhas devem ser iguais!');
+      setPassword('');
+      setRepeatPassword('');
       return;
     }
 
@@ -31,34 +36,38 @@ const Auth = () => {
   };
 
   return (
-    <div className="background-login">
-      <div className="container-login">
+    <div className="background">
+      <div className="container">
         <h3>Criar Conta</h3>
         <p className="error">{error}</p>
-        <form onSubmit={handleClickLogin}>
-          <input
-            type="text"
-            placeholder="Login"
-            value={login}
-            onChange={(event) => setLogin(event.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Senha"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <div className="form-button">
-            <Link className="button button-register" to="/auth">Votlar</Link>
-            <button className="button button-login" type="submit">Criar Conta</button>
-          </div>
-        </form>
+        <input
+          type="text"
+          placeholder="Login"
+          value={login}
+          onChange={(event) => setLogin(event.target.value)}
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Repita a Senha"
+          value={repeatPassword}
+          onChange={(event) => setRepeatPassword(event.target.value)}
+        />
+        <div className="form-button">
+          <Link className="button button-register" to="/auth">Votlar</Link>
+          <button className="button button-login" onClick={handleClickLogin}>Criar Conta</button>
+        </div>
       </div>
     </div>
   );

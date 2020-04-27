@@ -16,9 +16,7 @@ const Auth = () => {
     }
   });
 
-  const handleClickLogin = async (event) => {
-    event.preventDefault();
-
+  const handleClickLogin = async () => {
     if (!email || !password) {
       setError('Preencha todos os campos!');
       return;
@@ -37,28 +35,26 @@ const Auth = () => {
   };
 
   return (
-    <div className="background-login">
-      <div className="container-login">
+    <div className="background">
+      <div className="container">
         <h3>Fazer Login</h3>
         <p className="error">{error}</p>
-        <form onSubmit={handleClickLogin}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Senha"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <div className="form-button">
-            <button className="button button-login" type="submit">Login</button>
-            <Link className="button button-register" to="/register">Registrar-se</Link>
-          </div>
-        </form>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <div className="form-button">
+          <button className="button button-login" onClick={handleClickLogin}>Login</button>
+          <Link className="button button-register" to="/register">Registrar-se</Link>
+        </div>
       </div>
     </div>
   );

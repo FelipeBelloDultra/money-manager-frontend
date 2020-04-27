@@ -10,7 +10,7 @@ const MainLayout = (props) => {
   return (
     <div className="main-content">
       <TopBar />
-      <div className="main-children-content">
+      <div>
         <main>
           {children}
         </main>

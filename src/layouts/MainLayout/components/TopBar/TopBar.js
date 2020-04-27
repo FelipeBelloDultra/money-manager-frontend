@@ -21,8 +21,8 @@ const TopBar = () => {
         <a href="/dashboard">Money Manager</a>
       </div>
       <div className="main-menu">
-        <Link className="main-link" to="dashboard">Dashboard</Link>
-        <Link className="main-link" to="historic">Histórico</Link>
+        <Link className="main-link" to="/dashboard">Dashboard</Link>
+        <Link className="main-link" to="/historic">Histórico</Link>
       </div>
       <div className="main-options">
         <p>{moment(date).format('DD/MM/YYYY')} -</p>

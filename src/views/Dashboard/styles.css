@@ -1,0 +1,51 @@
+.dashboard-content {
+  background: rgba(238, 238, 238, 0.9);
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  max-width: 900px;
+  width: 100%;
+  padding: 10px 20px;
+  height: auto;
+  margin: 150px auto;
+}
+
+.dashboard-content h1 {
+  float: right;
+  font-weight: 400;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: italic;
+  text-shadow: 0px 0px  5px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-content p {
+  text-align: left;
+}
+
+.dashboard-balance {
+  font-size: 20px;
+  margin: 20px;
+}
+
+.dashboard-buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.dashboard-inputs {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 10px;
+}
+
+.dashboard-inputs input {
+  width: 100%;
+  margin-top: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 750px) {
+  .dashboard-content {
+    margin-top: 50px;
+  }
+}
