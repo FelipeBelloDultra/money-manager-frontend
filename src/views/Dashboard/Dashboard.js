@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
 
 import api from '../../utils/api';
+import convertMoneyToReal from '../../utils/convertMoneyToReal';
 import './styles.css';
 
 const Dashboard = () => {
-  const history = useHistory();
-
   const [userData, setUserData] = useState({});
   const [valueAmount, setValueAmount] = useState('');
   const [descriptionAmount, setDescriptionAmount] = useState('');
+  const [emptyInput, setEmptyInput] = useState('Todos os valores devem ser preenchidos.');
   const [error, setError] = useState();
 
   const getInfoUser = async () => {
@@ -22,14 +21,20 @@ const Dashboard = () => {
       setUserData(infoUser.data);
     } catch (error) {
       console.log(error.response);
+      setError(error.response.data.error);
     }
   };
 
   useEffect(() => {
     getInfoUser();
-  }, [history]);
+  }, []);
 
   const handleClickUpdateAmount = async (type) => {
+    if (!valueAmount || !descriptionAmount) {
+      setEmptyInput('Todos os valores devem ser preenchidos.');
+      return;
+    }
+
     try {
       const responseAmount = await api.put(`/balance/${userData.id_user}`, {
         value: valueAmount,
@@ -43,8 +48,12 @@ const Dashboard = () => {
       setUserData({ ...userData, balance: responseAmount.data.amount });
       setValueAmount('');
       setDescriptionAmount('');
+      setEmptyInput('');
     } catch (error) {
-      setError(error.response.data);
+      setValueAmount('');
+      setDescriptionAmount('');
+      setEmptyInput('');
+      setError(error.response.data.error);
     }
   };
 
@@ -53,10 +62,7 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <p>Bem vindo, <b>{userData.login}</b></p>
       <div className="dashboard-balance">
-        <p>Saldo atual: <b>{Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL'
-        }).format(userData.balance || 0)}</b></p>
+        <p>Saldo atual: <b>{convertMoneyToReal(userData.balance || 0)}</b></p>
       </div>
       <div className="error">
         <p>{error}</p>
@@ -79,7 +85,7 @@ const Dashboard = () => {
             className="error"
             style={{ display: (valueAmount.length === 0 || descriptionAmount.length === 0) ? 'block' : 'none' }}
           >
-            Todos os campos devem ser preenchidos.
+            {emptyInput}
           </p>
         </div>
         <div className="dashboard-buttons">

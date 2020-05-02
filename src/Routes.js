@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import { Auth, Register, Dashboard, Historic } from './views'
+import { Auth, Register, Dashboard, Historic, HistoricView } from './views'
 import { PrivateRoute } from './components';
 import { MainLayout } from './layouts';
 
@@ -31,6 +31,12 @@ const Routes = () => {
           exact
           path="/historic"
           component={Historic}
+        />
+        <PrivateRoute
+          layout={MainLayout}
+          exact
+          path="/historic/:id"
+          component={HistoricView}
         />
         <Redirect to="/auth" />
       </Switch>
